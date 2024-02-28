@@ -21,6 +21,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'userId',
         'nama',
         'email',
         'password',
@@ -29,19 +30,37 @@ class User extends Authenticatable
 
     protected $hidden = [
         'password',
+        'remember_token',
     ];
 
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    public function magang()
+    {
+        return $this->hasMany(Pemagang::class, 'userId');
+    }
 
     public function supervisor()
     {
-        return $this->hasOne(Supervisor::class);
+        return $this->hasMany(Supervisor::class, 'userId');
     }
 
-    // Relationship with InternStudent
-    public function magang()
+    public function kelompok()
     {
-        return $this->hasOne(Pemagang::class);
+        return $this->hasOne(Kelompok::class);
     }
+
+    // public function parentSupervisor()
+    // {
+    //     return $this->belongsTo(Supervisor::class, 'pemagangId');
+    // }
+
+    // public function parentPemagang()
+    // {
+    //     return $this->belongsTo(Pemagang::class, 'pemagangId');
+    // }
 
     /**
      * Interact with the user's first name.

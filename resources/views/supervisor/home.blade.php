@@ -21,7 +21,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link active" href="">
+            <a class="nav-link active" href="{{ route('home') }}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
@@ -34,18 +34,45 @@
             Data Magang
         </div>
 
-        
         <!-- Nav Item - Charts -->
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('sup.daftarList') }}">
-            <i class="fas fa-fw fa-cog"></i>
+        <li class="nav-item ">
+            <a class="nav-link" href="{{ route('daftarAnakMagang') }}">
+                <i class="fas fa-users"></i>
                 <span>Daftar Anak Magang</span></a>
         </li>
+
+        <!-- Nav Item - Charts -->
+        <li class="nav-item ">
+            <a class="nav-link" href="{{route('task.index')}}">
+                <i class="fas fa-tasks"></i>
+                <span>Tugas Anak Magang</span></a>
+        </li>
+
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-cog"></i>
+            <a class="nav-link" href="{{ route('evaluasi.index') }}">
+                <i class="fas fa-star-half-alt"></i>
                 <span>Evaluasi Anak Magang</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('kelompok.index') }}">
+                <i class="fas fa-user-friends"></i>
+                <span>Daftar Kelompok Magang</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            Hak Akses
+        </div>
+        <!-- Nav Item - Charts -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('createPemagang') }}">
+                <i class="fas fa-users-cog"></i>
+                <span>Hak Akses User</span></a>
         </li>
 
         <!-- Divider -->

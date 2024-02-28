@@ -16,7 +16,12 @@ class Supervisor extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function pemagang()
+    public function kelompok()
+    {
+        return $this->hasMany(kelompok::class, 'supervisorId');
+    }
+
+    public function magang()
     {
         return $this->hasMany(pemagang::class, 'supervisorId');
     }
@@ -24,12 +29,15 @@ class Supervisor extends Model
     protected $fillable = [
         'namaSupervisor',
         'fotoProfil',
+        'userId',
         'noTelp'
     ];
  
     protected $hidden = [
         'timestamps',
     ];
+    // protected $dateFormat = 'd/m/Y';
+
  
     // protected $casts = [
     //     'tglMulai' => 'datetime',

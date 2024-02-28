@@ -12,14 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tblTugas', function (Blueprint $table) {
-            $table->id('tugasId');
+            $table->increments('tugasId');
+            $table->integer('kelompokId')->unsigned();
+            $table->integer('supervisorId')->unsigned();
             $table->string('judul');
             $table->string('deskripsi');
-            $table->enum('status', ['Baru','Proses','Evaluasi','Revisi', 'Selesai'])->default('Baru');
+            $table->string('status');
             $table->date('tglMulai');
             $table->date('tglSelesai');
             $table->timestamps();
         });
+
+        Schema::table('tblTugas', function (Blueprint $table) {
+            $table->foreign('supervisorId')->references('supervisorId')->on('tblSupervisor')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('kelompokId')->references('kelompokId')->on('tblKelompok')->onUpdate('cascade')->onDelete('cascade');
+            });
     }
 
     /**

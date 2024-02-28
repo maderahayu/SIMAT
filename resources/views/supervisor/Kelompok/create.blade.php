@@ -18,9 +18,10 @@
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
 
-        <!-- Nav Item - Dashboard -->
+        <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link active" href="{{ route('home') }}">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('home') }}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
@@ -34,18 +35,32 @@
         </div>
 
         <!-- Nav Item - Charts -->
-        <li class="nav-item active">
-            <a class="nav-link" href="{{ route('sup.daftarList') }}">
-                <i class="fas fa-fw fa-list"></i>
+        <li class="nav-item ">
+            <a class="nav-link" href="{{ route('daftarAnakMagang') }}">
+                <i class="fas fa-users"></i>
                 <span>Daftar Anak Magang</span></a>
         </li>
+
         <!-- Nav Item - Charts -->
         <li class="nav-item">
-            <a class="nav-link" href="">
-                <i class="fas fa-fw fa-cog"></i>
+            <a class="nav-link" href="{{route('task.index')}}">
+                <i class="fas fa-tasks"></i>
+                <span>Tugas Anak Magang</span></a>
+        </li>
+
+        <!-- Nav Item - Charts -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('evaluasi.index') }}">
+                <i class="fas fa-star-half-alt"></i>
                 <span>Evaluasi Anak Magang</span></a>
         </li>
-        
+
+        <li class="nav-item active">
+            <a class="nav-link" href="{{ route('kelompok.index') }}">
+                <i class="fas fa-user-friends"></i>
+                <span>Daftar Kelompok Magang</span></a>
+        </li>
+
         <!-- Divider -->
         <hr class="sidebar-divider">
 
@@ -53,10 +68,10 @@
         <div class="sidebar-heading">
             Hak Akses
         </div>
-         <!-- Nav Item - Charts -->
-         <li class="nav-item">
-            <a class="nav-link" href="">
-                <i class="fas fa-fw fa-cog"></i>
+        <!-- Nav Item - Charts -->
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('createPemagang') }}">
+                <i class="fas fa-users-cog"></i>
                 <span>Hak Akses User</span></a>
         </li>
 
@@ -83,43 +98,38 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-4 text-gray-800">Daftar Anak Magang</h1>
-                
+                <h1 class="h3 mb-4 text-gray-800">Daftar Kelompok Magang</h1>
+
+
                 <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-hover" id="table" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr class="table-secondary">
-                                        <th scope="col">#</th>
-                                        <th scope="col">Nama</th>
-                                        <th scope="col">Univeritas</th>
-                                        <th scope="col">Tanggal Mulai</th>
-                                        <th scope="col">Tanggal Selesai</th>
-                                        <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach ($magang as $mg)
-                                        <tr>
-                                            <th scope="row">{{ $mg->pemagangId }}</th>
-                                            <td>{{ $mg->namaPemagang}}</td>
-                                            <td>{{ $mg->namaPemagang}}</td>
-                                            <td>{{ $mg->tglMulai}}</td>
-                                            <td>{{ $mg->tglSelesai}}</td>
-                                            <td>
-                                                <a class="btn btn-success" href="{{ route('sup.editPemagang', $mg->pemagangId) }}" role="button"><i class="fa fa-pen"></i></a>
-                                                <a class="btn btn-danger" href="" role="button"><i class="fa fa-trash"></i></a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                        
-                                    </tbody>
-                                </table>
+                    <div class="card-body">
+                        <form action="{{ route('storeKelompok') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+
+                            <div id="status-section" class="form-group">
+                                <label for="intern_group">Kelompok</label>
+                                <input type="text" class="form-control" name="namaKelompok" placeholder="Masukkan Nama Kelompok . . ." required>
                             </div>
-                        </div>
+
+                            <div id="status-section" class="form-group">
+                                <label>Status Tugas</label>
+                                <select name="supervisor" class="form-control" required>
+                                    <option style="display:none">Pilih Supervisor</option>
+                                    @foreach($supervisor as $s)
+                                    <option value="{{$s->supervisorId}}">{{$s->namaSupervisor}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="col-md-12 text-center">
+                                <a class="btn btn-secondary" href="{{ route('task.index') }}" style="height:40px;width:200px"><i class="fas fa-chevron-circle-left fa-lg" style="margin-right:20px"></i>Kembali</a>
+                                <button type="submit" class="btn btn-primary" style="height:40px;width:200px"><i class="fas fa-save fa-lg" style="margin-right:20px"></i> Simpan</button>
+                            </div>
+                        </form>
+
                     </div>
-                
+                </div>
+
             </div>
             <!-- /.container-fluid -->
 
@@ -149,12 +159,4 @@
 
 @include('layouts.logoutModels')
 
-</div>
-</div>
-
-
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
 @endsection

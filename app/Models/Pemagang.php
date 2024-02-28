@@ -21,33 +21,40 @@ class Pemagang extends Model
      */
     protected $table = 'tblPemagang';
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
+    
     public function supervisor()
     {
         return $this->belongsTo(Supervisor::class, 'supervisorId');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function tugas()
+    {
+        return $this->hasMany(Tugas::class);
+    }
+
     protected $fillable = [
         'userId',
+        'supervisorId',
+        'kelompokId',
         'namaPemagang',
         'namaUniversitas',
-        'email',
-        'fotoProfil',
         'tglMulai',
         'tglSelesai',
-        'noTelp',
-        'type'
+        'fotoProfil',
+        'noTelp'
     ];
- 
+    
     protected $hidden = [
         'noTelp',
         'timestamps',
     ];
  
+    // protected $dateFormat = 'U';
     protected $casts = [
         'tglMulai' => 'datetime',
         'tglSelesai' => 'datetime',

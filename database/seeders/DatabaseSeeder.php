@@ -7,7 +7,11 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Pemagang;
 use App\Models\Supervisor;
-
+use App\Models\Kelompok;
+use App\Models\Tugas;
+use App\Models\Evaluasi;
+use App\Models\Lampiran;
+use App\Models\Logbook;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,43 +19,24 @@ class DatabaseSeeder extends Seeder
      * Seed the application's database.
      */
     public function run(): void
-    {
-        User::factory(4)->create();
-        
-        // Retrieve all users with type 1 and create supervisors
+    { 
+        User::factory(10)->create();
         $supervisorUsers = User::where('type', 1)->get();
         foreach ($supervisorUsers as $user) {
             Supervisor::factory()->create();
         }
+        
+        Kelompok::factory(2)->create();
+        
         $magangUsers = User::where('type', 0)->get();
         foreach ($magangUsers as $user) {
             Pemagang::factory()->create();
         }
-
         
-        // User::factory(4)->create()->each(function ($user) {
-        //     if ($user->type == 1) {
-        //         // dd($user->type);
-        //         Supervisor::factory()->create();
-        //     } elseif ($user->type == 0) {
-        //         Pemagang::factory()->create(['userId' => $user->id]);
-        //     }
-        // });
-        // User::factory()->recycle(
-            // Supervisor::factory()->create(),
-            // Pemagang::factory()->create()
-            // )->create();
-
-        // User::factory(1)->create()->each(function (User $user) {
-        //     $user->supervisor()->save(Supervisor::factory()->make());
-        //     $user->pemagang()->save(Pemagang::factory()->make());
-        // });
-        // Pemagang::factory()->count(15)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        Tugas::factory(3)->create();
+        Lampiran::factory(10)->create();
+        Evaluasi::factory(3)->create();
+        Logbook::factory(4)->create();
     }
 
 }

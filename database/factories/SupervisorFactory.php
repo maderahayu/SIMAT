@@ -22,20 +22,15 @@ class SupervisorFactory extends Factory
     {
 
         // $user = User::where('type', 1)->inRandomOrder()->first();
-        $user = User::where('type', 1)
-            ->whereNotIn('id', Supervisor::pluck('supervisorId')->toArray())
-            ->inRandomOrder()
-            ->first();
+        $user = User::where('type', 1)->whereNotIn('id', Supervisor::pluck('userId')->toArray())->orderBy('id','asc')->first();
 
         return [
             'userId' => $user->id,
             'namaSupervisor' => $user->nama, 
-            'fotoProfil' => $this->faker->image('public/storage/images', 640, 480, "animals", false),
+            'fotoProfil' => $this->faker->image(public_path('/storage/images/'), 640, 480, "animals", false),
             'noTelp' => $this->faker->phoneNumber(),
         ];
        
         
-        // dd($user);
-        // return $user;
     }
 }

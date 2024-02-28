@@ -70,39 +70,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     { 
-        // dd($data);
         $user = User::create([
             'nama' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'type' => 1
         ]);   
-        // echo $users->id;
+        Supervisor::create([
+            'namaSupervisor' => $user->nama,
+            'userId' => $user->id,
+            'noTelp' => ''
+        ]);
 
-        // dd($user->type);
-
-        if($user->type == 'supervisor'){
-            Supervisor::create([
-                'namaSupervisor' => $user->nama,
-                'userId' => $user->id,
-                'noTelp' => ''
-            ]);
-        } elseif ($user->type == 'pemagang'){
-            $magang = Pemagang::create([
-                'userId' => $user->id,
-                'email' => $data['email'],
-                'namaPemagang' => $user['nama'],
-                'namaUniversitas' => '',
-                'fotoProfil' => '',
-                'noTelp' => '',
-            ]); 
-        }
-         
-
-        // dd($users);
-    
         return $user;
-        // return redirect()->route('home');
-        // print_r(User, Pemagang);
     }
 }

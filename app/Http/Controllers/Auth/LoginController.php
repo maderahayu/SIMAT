@@ -18,7 +18,6 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
- 
     public function login(Request $request)
     {   
         $input = $request->all();
@@ -27,7 +26,6 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
        
-        // dd($input);
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
             if (auth()->user()->type == 'supervisor') {

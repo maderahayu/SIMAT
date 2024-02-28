@@ -12,12 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tblSupervisor', function (Blueprint $table) {
-            $table->id('supervisorId');
-            $table->integer('userId');
+            $table->increments('supervisorId');
+            $table->integer('userId')->unsigned();
             $table->string('namaSupervisor');
             $table->string('fotoProfil')->nullable();
             $table->string('noTelp');
             $table->timestamps();
+        });
+
+        Schema::table('tblSupervisor', function (Blueprint $table) {
+            $table->foreign('userId')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
